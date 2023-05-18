@@ -1,6 +1,8 @@
 package views;
 
 import java.awt.EventQueue;
+
+import Controllers.HuespedesControllers;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -24,7 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
-
+import com.hotel.modelo.*;
 @SuppressWarnings("serial")
 public class RegistroHuesped extends JFrame {
 
@@ -39,6 +41,7 @@ public class RegistroHuesped extends JFrame {
 	private JLabel labelAtras;
 	int xMouse, yMouse;
 
+	private HuespedesControllers huespedController;
 	/**
 	 * Launch the application.
 	 */
@@ -54,11 +57,16 @@ public class RegistroHuesped extends JFrame {
 			}
 		});
 	}
+	
+	public RegistroHuesped() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public RegistroHuesped() {
+	public RegistroHuesped(Integer idReserva) {
+		this.huespedController = new HuespedesControllers();
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -210,6 +218,10 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		//agregado para poder pasar el ID a la proxima página
+		txtNreserva.setEditable(false);
+		String id = String.valueOf(idReserva);
+		txtNreserva.setText(id);
 		contentPane.add(txtNreserva);
 		
 		JSeparator separator_1_2 = new JSeparator();
@@ -253,6 +265,7 @@ public class RegistroHuesped extends JFrame {
 		btnguardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				guardarReservaHuesped();
 			}
 		});
 		btnguardar.setLayout(null);
@@ -315,7 +328,23 @@ public class RegistroHuesped extends JFrame {
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 	}
 	
+	//Código para tomar los valores de los campos y enviar al controller
 	
+	public void guardarReservaHuesped() {
+		String fNacimiento = ((JTextField)txtFechaN.getDateEditor().getUiComponent()).getText();
+		
+		Huesped nuevoHuesped = new Huesped(txtNombre.getText(), 
+				txtApellido.getText(),java.sql.Date.valueOf(fNacimiento), 
+				String.valueOf(txtNacionalidad.getSelectedItem()),
+				txtTelefono.getText(),Integer.parseInt(txtNreserva.getText()));
+		
+		huespedController.guardarHuesped(nuevoHuesped);
+		
+		JOptionPane.showMessageDialog(contentPane, "Nuevo Huesped guardado con éxito, id:" + nuevoHuesped.getId());
+	}
+	
+	
+
 	//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"	
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
 	        xMouse = evt.getX();

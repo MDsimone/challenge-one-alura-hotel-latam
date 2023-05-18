@@ -8,13 +8,18 @@ import java.awt.Panel;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class MenuPrincipal extends JFrame {
@@ -162,6 +167,29 @@ public class MenuPrincipal extends JFrame {
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setForeground(SystemColor.textHighlight);
 		lblTitulo.setFont(new Font("Roboto Light", Font.PLAIN, 20));
+		
+		JLabel lblSalir = new JLabel("SALIR");
+		lblSalir.setForeground(new Color(0, 128, 255));
+		lblSalir.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblSalir.setBounds(764, 381, 90, 24);
+		panel.add(lblSalir);
+		
+		JButton btnNewButton = new JButton("Salir");
+		btnNewButton.setIcon(new ImageIcon("D:\\ALURA ORACLE\\CHALLENGE\\challenge-one-alura-hotel-latam\\bin\\imagenes\\cerrar-sesion 32-px.png"));
+		btnNewButton.setBounds(754, 416, 90, 73);
+		panel.add(btnNewButton);	
+		btnNewButton.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int result = javax.swing.JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?", "Confirmación", javax.swing.JOptionPane.YES_NO_OPTION);
+                if (result == javax.swing.JOptionPane.YES_OPTION) {
+                    // Cerrar la aplicación
+                    System.exit(0);
+			}
+			}
+		});
+
+	
 	}
 	
 	//Código que permite movimentar a janela pela tela seguindo a posição de "x" e "y"	

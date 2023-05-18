@@ -108,14 +108,14 @@ public class MenuUsuario extends JFrame {
 		panelMenu.add(btnRegistro);
 		btnRegistro.setLayout(null);
 		
-		labelRegistro = new JLabel("Registro de reservas");
-		labelRegistro.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/reservado.png")));
+		labelRegistro = new JLabel("Reservas");
+		labelRegistro.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/reservas.png")));
 		labelRegistro.setForeground(SystemColor.text);
-		labelRegistro.setBounds(25, 11, 205, 34);
+		labelRegistro.setBounds(25, 11, 159, 45);
 		labelRegistro.setFont(new Font("Roboto", Font.PLAIN, 18));
 		labelRegistro.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRegistro.add(labelRegistro);
-		
+		//boton como texto para 
 		JPanel btnBusqueda = new JPanel();
 		btnBusqueda.addMouseListener(new MouseAdapter() {
 			@Override
@@ -139,8 +139,8 @@ public class MenuUsuario extends JFrame {
 		btnBusqueda.setLayout(null);
 		
 		JLabel lblBusquedaDeReservas = new JLabel("Búsqueda");
-		lblBusquedaDeReservas.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/pessoas.png")));
-		lblBusquedaDeReservas.setBounds(27, 11, 200, 34);
+		lblBusquedaDeReservas.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/busqueda.png")));
+		lblBusquedaDeReservas.setBounds(27, 11, 175, 45);
 		lblBusquedaDeReservas.setHorizontalAlignment(SwingConstants.LEFT);
 		lblBusquedaDeReservas.setForeground(Color.WHITE);
 		lblBusquedaDeReservas.setFont(new Font("Roboto", Font.PLAIN, 18));
@@ -149,6 +149,20 @@ public class MenuUsuario extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(26, 219, 201, 2);
 		panelMenu.add(separator);
+		
+		JButton btnNewButton = new JButton("Salir");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int result = javax.swing.JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?", "Confirmación", javax.swing.JOptionPane.YES_NO_OPTION);
+                if (result == javax.swing.JOptionPane.YES_OPTION) {
+                    // Cerrar la aplicación
+                    System.exit(0);
+			}
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon("D:\\ALURA ORACLE\\CHALLENGE\\challenge-one-alura-hotel-latam\\bin\\imagenes\\cerrar-sesion 32-px.png"));
+		btnNewButton.setBounds(26, 379, 65, 49);
+		panelMenu.add(btnNewButton);
 		header.setLayout(null);
 		header.setBackground(Color.WHITE);
 		header.setBounds(0, 0, 944, 36);

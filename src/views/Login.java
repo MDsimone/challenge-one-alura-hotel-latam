@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controllers.ValidadorDeCredenciales;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,6 +20,10 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class Login extends JFrame {
 
@@ -29,6 +36,7 @@ public class Login extends JFrame {
 	private JPasswordField txtContrasena;
 	int xMouse, yMouse;
 	private JLabel labelExit;
+	//private ValidadorDeCredenciales validar;
 
 	/**
 	 * Launch the application.
@@ -192,7 +200,12 @@ public class Login extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login();
+				try {
+					Login();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnLogin.setBackground(SystemColor.textHighlight);
@@ -234,10 +247,20 @@ public class Login extends JFrame {
 		header.setLayout(null);
 	}
 	
-	private void Login() {
-		 String Usuario= "admin";
-	     String Contraseña="admin";
-
+	private void Login() throws SQLException {
+		// Object[] Usuario= null;
+	     //Object[] Contraseña = null;
+	ValidadorDeCredenciales validar = new ValidadorDeCredenciales();
+	List<Map<String,String>> result = validar.ValidaCredencial();
+        
+		String Usuario = "";
+         String Contraseña = "";
+         
+         for(Map<String,String> mapa : result ) {
+ 			Usuario = mapa.get("usuario");
+ 			Contraseña = mapa.get("clave");
+ 		}
+	
 	        String contrase=new String (txtContrasena.getPassword());
 
 	        if(txtUsuario.getText().equals(Usuario) && contrase.equals(Contraseña)){
